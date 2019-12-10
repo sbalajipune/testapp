@@ -1,6 +1,12 @@
 try {
  timeout(time: 20, unit: 'MINUTES') {
       node("nodejs") {
+		// download and configure all common cicd stuff
+        dir('cicd') {
+            git "https://github.com/sbalajipune/testapp.git"
+            // load groovy functions
+            newman = load 'cicd/pipelines/functions/newman.groovy'
+        }
         stage("Integration tests") {
               newman.runTest("https://raw.githubusercontent.com/sbalajipune/testapp/master/member-service/tests/member-service.postman_collection.json", "https://raw.githubusercontent.com/sbalajipune/testapp/master/member-service/tests/dev.postman_environment.json")
           }
