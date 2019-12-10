@@ -1,35 +1,8 @@
 try {
  timeout(time: 20, unit: 'MINUTES') {
-    node('maven') {
-        // download and configure all common cicd stuff
-        dir('cicd') {
-            git "https://github.com/sbalajipune/testapp.git"
-            // load groovy functions
-            newman = load 'cicd/pipelines/functions/newman.groovy'
-        }
-        stage('build') {
-          openshift.withCluster() {
-             openshift.withProject() {
-                def bld = openshift.startBuild('member-service')
-                bld.untilEach {
-                  return it.object().status.phase == "Running"
-                }
-                bld.logs('-f')
-             }
-          }
-        }
-        stage('deploy') {
-          openshift.withCluster() {
-            openshift.withProject() {
-              def dc = openshift.selector('dc', 'member-service')
-              dc.rollout().latest()
-            }
-          }
-        }
-      }
       node("nodejs") {
         stage("Integration tests") {
-              newman.runTest(params.POSTMAN_TESTS_COLLECTION, params.POSTMAN_DEV_ENVIRONMENT_CONFIG)
+              newman.runTest("https://raw.githubusercontent.com/sbalajipune/testapp/master/member-service/tests/member-service.postman_collection.json", "https://raw.githubusercontent.com/sbalajipune/testapp/master/member-service/tests/dev.postman_environment.json")
           }
       }
     }
