@@ -982,7 +982,7 @@ parameters:
     are not using the default branch.
   displayName: Git Reference
   name: SOURCE_REPOSITORY_REF
-  value: feature/cicd
+  value: master
 - description: Set this to the relative path to your project if it is not in the root
     of your repository.
   displayName: Context Directory
@@ -1023,6 +1023,6 @@ parameters:
   required: true
   value: openshift
 - name: POSTMAN_TESTS_COLLECTION
-  value: "https://raw.githubusercontent.com/sbalajipune/societyapp/feature/cicd/member-service/tests/member-service.postman_collection.json"
+  value: "https://raw.githubusercontent.com/sbalajipune/societyapp/master/member-service/tests/member-service.postman_collection.json"
 - name: POSTMAN_DEV_ENVIRONMENT_CONFIG
-  value: "https://raw.githubusercontent.com/sbalajipune/societyapp/feature/cicd/member-service/tests/dev.postman_environment.json"
+  value: "https://raw.githubusercontent.com/sbalajipune/societyapp/master/member-service/tests/dev.postman_environment.json"
