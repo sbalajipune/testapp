@@ -3,7 +3,7 @@ try {
     node('maven') {
         // download and configure all common cicd stuff
         dir('cicd') {
-            git "https://github.com/sbalajipune/societyapp.git"
+            git "https://github.com/sbalajipune/testapp.git"
             // load groovy functions
             newman = load 'cicd/pipelines/functions/newman.groovy'
         }
