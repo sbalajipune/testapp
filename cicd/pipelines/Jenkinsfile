@@ -10,7 +10,7 @@ try {
         stage('build') {
           openshift.withCluster() {
              openshift.withProject() {
-                def bld = openshift.startBuild(params.MEMBER_APP_NAME)
+                def bld = openshift.startBuild('member-service')
                 bld.untilEach {
                   return it.object().status.phase == "Running"
                 }
@@ -21,7 +21,7 @@ try {
         stage('deploy') {
           openshift.withCluster() {
             openshift.withProject() {
-              def dc = openshift.selector('dc', params.MEMBER_APP_NAME)
+              def dc = openshift.selector('dc', 'member-service')
               dc.rollout().latest()
             }
           }
