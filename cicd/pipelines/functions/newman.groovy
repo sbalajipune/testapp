@@ -5,7 +5,7 @@ def runTest(testCollection, testEnvironment) {
    // TODO create a jenkins slave image with newman install
    // meanwhile, install it everytime...
    sh "ls -ltr"
-   sh "cicd"
+   sh "cd cicd"
    sh "ls -ltr"
    sh "pwd"
    sh "npm install -g newman"
