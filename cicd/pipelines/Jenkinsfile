@@ -8,7 +8,7 @@ try {
             newman = load 'cicd/pipelines/functions/newman.groovy'
         }
         stage("Integration tests") {
-              newman.runTest("member-service/tests/member-service.postman_collection.json", "member-service/tests/dev.postman_environment.json")
+              newman.runTest("https://raw.githubusercontent.com/sbalajipune/testapp/master/member-service/tests/member-service.postman_collection.json", "https://raw.githubusercontent.com/sbalajipune/testapp/master/member-service/tests/dev.postman_environment.json")
           }
       }
     }
