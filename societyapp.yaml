@@ -40,6 +40,8 @@ objects:
             value: ${MEMBER_APP_NAME}
           - name: CICD_GIT_URL
             value: ${SOURCE_REPOSITORY_URL}
+          - name: TEST_PROJECT
+            value: ${TEST_PROJECT_NAME}
 - apiVersion: v1
   kind: BuildConfig
   metadata:
@@ -961,3 +963,7 @@ parameters:
   name: NAMESPACE
   required: true
   value: openshift
+- description: Test environment project name.
+  disaplyName: Test environment for societyapp.
+  name: TEST_PROJECT_NAME
+  value: societyapp-test
