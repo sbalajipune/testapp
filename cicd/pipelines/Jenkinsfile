@@ -4,7 +4,7 @@ try {
 		stage('build') {
           openshift.withCluster() {
              openshift.withProject() {
-                def bld = openshift.startBuild('member-service')
+                def bld = openshift.startBuild('${params.APP_NAME}')
                 bld.untilEach {
                   return it.object().status.phase == "Running"
                 }
@@ -15,7 +15,7 @@ try {
         stage('deploy') {
           openshift.withCluster() {
             openshift.withProject() {
-              def dc = openshift.selector('dc', 'member-service')
+              def dc = openshift.selector('dc', '${params.APP_NAME}')
               dc.rollout().latest()
             }
           }
@@ -24,12 +24,12 @@ try {
 	  node("nodejs") {
 		// download and configure all common cicd stuff
         dir('cicd') {
-            git "https://github.com/sbalajipune/testapp.git"
+            git "${params.CICD_GIT_URL}"
             // load groovy functions
             newman = load 'cicd/pipelines/functions/newman.groovy'
         }
 		stage("Integration tests") {
-              newman.runTest("cicd/member-service/tests/member-service.postman_collection.json", "cicd/member-service/tests/dev.postman_environment.json")
+              newman.runTest("cicd/${params.APP_NAME}/tests/${params.APP_NAME}.postman_collection.json", "cicd/${params.APP_NAME}/tests/dev.postman_environment.json")
         }
       }
     }
