@@ -963,7 +963,3 @@ parameters:
   name: NAMESPACE
   required: true
   value: openshift
-- description: Test environment project name.
-  disaplyName: Test environment for societyapp.
-  name: TEST_PROJECT_NAME
-  value: societyapp-test
