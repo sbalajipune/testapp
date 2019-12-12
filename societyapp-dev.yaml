@@ -28,10 +28,6 @@ objects:
       name: member-app-pipeline
     name: member-app-pipeline
   spec:
-    output:
-      to:
-        kind: "DockerImage"
-        name: "https://hub.docker.com/societyapp/${MEMBER_APP_NAME}:latest"
     source:
       git:
         uri: ${SOURCE_REPOSITORY_URL}

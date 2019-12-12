@@ -32,7 +32,7 @@ try {
               newman.runTest("cicd/${params.APP_NAME}/tests/${params.APP_NAME}.postman_collection.json", "cicd/${params.APP_NAME}/tests/dev.postman_environment.json")
         }
 		
-		stage('Approval required for deployment to test') {
+		/*stage('Approval required for deployment to test') {
 			input "Deployment to Test Env: Ready to deploy ${params.TEST_PROJECT} project with application ${params.APP_NAME}?"
 		}
 		
@@ -51,7 +51,7 @@ try {
 					newman.runTest("cicd/${params.APP_NAME}/tests/${params.APP_NAME}.postman_collection.json", "cicd/${params.APP_NAME}/tests/dev.postman_environment.json")
 				}
 			}
-        }
+        }*/
       }
     }
 } catch (err) {
