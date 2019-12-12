@@ -28,7 +28,7 @@ try {
             // load groovy functions
             newman = load 'cicd/pipelines/functions/newman.groovy'
         }
-		stage("Integration tests") {
+		stage("Integration tests in DEV") {
               newman.runTest("cicd/${params.APP_NAME}/tests/${params.APP_NAME}.postman_collection.json", "cicd/${params.APP_NAME}/tests/dev.postman_environment.json")
         }
 		
@@ -37,12 +37,20 @@ try {
 		}
 		
 		stage('deploy to test env') {
-          openshift.withCluster(params.TEST_PROJECT) {
-            openshift.withProject() {
+          openshift.withCluster() {
+            openshift.withProject(params.TEST_PROJECT) {
               def dc = openshift.selector('dc', params.APP_NAME)
               dc.rollout().latest()
             }
           }
+        }
+		
+		stage("Integration tests in TEST") {
+			openshift.withCluster() {
+				openshift.withProject(params.TEST_PROJECT) {
+					newman.runTest("cicd/${params.APP_NAME}/tests/${params.APP_NAME}.postman_collection.json", "cicd/${params.APP_NAME}/tests/dev.postman_environment.json")
+				}
+			}
         }
       }
     }
